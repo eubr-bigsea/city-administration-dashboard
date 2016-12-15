@@ -1,0 +1,203 @@
+<div class="row esc-seletores">
+
+
+    <div class="right-info" ng-show="!chart1WithoutTravels && dataIsLoaded" style="margin-right: 3%">
+
+        <div class="col-md-2">
+            <div>
+                <!--<p class="info"style="float:left; margin-top:20px">Valor mediano de duração:</p>-->
+                <div class="tempStatBox">
+                    <div class="tempStat tip">
+                        <p>Tempo mediano de duração das viagens realizadas neste dia.</p>
+                        {{medianaDuracao}}
+                    </div>
+                    <span>minutos</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div>
+                <!--<p class="info"style="float:left; margin-top:20px">Valor mediano de duração:</p>-->
+                <div class="tempStatBox">
+                    <div class="tempStat tip" ng-click = "busClick('corretas')">
+                        <p>Total de viagens corretas neste dia.</p>
+                        {{numViagensCorretas}}
+                    </div>
+                    <span>corretas</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div>
+                <!--<p class="info"style="float:left; margin-top:20px">Atrasadas:</p>-->
+                <div class="tempStatBox">
+                    <div class="tempStat tip" ng-click = "busClick('atrasadas')">
+                        <p>Total de viagens atrasadas neste dia.</p>
+                        {{numViagensAtrasadas}}
+                    </div>
+                    <span>atrasadas</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div>
+                <!--<p class="info" style="float:left; margin-top:20px">A mais:</p>-->
+                <div class="tempStatBox">
+                    <div class="tempStat tip" ng-click = "busClick('extra')">
+                        <p>Total de viagens que não estavam previstas, mas foram realizadas.</p>
+                        {{numViagensMais}}
+                    </div>
+                    <span>extra</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div>
+                <!--<p class="info"style="float:left; margin-top:20px">Faltantes:</p>-->
+                <div class="tempStatBox">
+                    <div class="tempStat tip" ng-click = "busClick('faltantes')">
+                        <p>Total de viagens que estavam previstas, mas não foram realizadas.</p>
+                        {{numViagensMenos}}
+                    </div>
+                    <span>faltantes</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div>
+                <!--<p class="info" style="float:left; margin-top:20px">Total de viagens:</p>-->
+                <div class="tempStatBox">
+                    <div class="tempStat tip" ng-click = "busClick('total')">
+                        <p>Total de viagens deste dia
+                            <br/>
+                            (atrasadas + toleradas + extra).</p>
+                        {{numViagens}}
+                    </div>
+                    <span>total</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form class="form form-horizontal" ng-submit="update()" name="busca">
+
+        <div class="form-group form-group-md left-info-3">
+
+            <nav class="main-menu">
+                <ul>
+                    <li>
+                        <a href="#">
+                            <div class="col-sm-1 icon">
+                                <i class="fa fa-search"></i>
+                            </div>
+                            <div class="col-sm-2" style="padding-left: 4rem">
+                                <ui-select class="form-control" ng-model="rota.selected" theme="selectize"
+                                           style="margin-bottom: 15px; width: 150px; padding: 0px; border: none;"
+                                           ng-change="update()"
+                                           ng-disabled="seletoresIsEnable">
+                                    <ui-select-match placeholder="Escolha uma rota">{{$select.selected}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="r in rotasValidas | filter: $select.search">
+                                        <span ng-bind-html="r | highlight: $select.search"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <br/>
+            <br/>
+            <br/>
+
+            <nav class="main-menu">
+                <ul>
+                    <li>
+                        <a href="#">
+                            <div class="col-sm-1 icon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+
+                            <div class="col-sm-9" style="padding-left: 4rem">
+
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" type="button" ng-click="previousDay()"
+                                                ng-disabled="seletoresIsEnable"><i
+                                                class="glyphicon glyphicon-minus"></i></button>
+                                    </div>
+
+                                    <input id="calendar" class="form-control" type="text" datepicker-popup="{{format}}"
+                                           ng-model="dt" ng-change="update()"
+                                           is-open="status.opened" max-date="maxDate" datepicker-options="dateOptions"
+                                           ng-required="true" close-text="Close" show-button-bar="false"
+                                           ng-disabled="seletoresIsEnable"/>
+
+                                    <div class="input-group-btn float-left">
+                                        <button class="btn btn-default" type="button" ng-click="nextDay()"
+                                                ng-disabled="seletoresIsEnable"><i
+                                                class="glyphicon glyphicon-plus"></i></button>
+                                    </div>
+
+                                    <button type="button" class="btn btn-default" style="padding-left: 2.5rem;" ng-click="open($event)"
+                                            id="calendario" ng-disabled="seletoresIsEnable">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </button>
+                                </div>
+
+                                <p ng-show="validDate" style="color: red">Digite uma data válida.</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <br/>
+            <br/>
+            <br/>
+
+            <nav class="main-menu">
+                <ul>
+                    <li>
+                        <a href="#">
+
+                            <div class="col-sm-1 icon">
+                                <i class="fa fa-bus large-font"></i>
+                            </div>
+                            <div class="col-sm-2" style="padding-left: 4rem">
+                                <div class="col-sm-9" style="padding-left: 2rem" ng-show="!chart1WithoutTravels && dataIsLoaded">
+                                    <div class="col-md-1" ng-repeat="bus in lista_bus" style="margin-right: 1rem">
+                                        <div class="alinhamento-vertical">
+                                            <div ng-click="selectBus(bus)"
+                                                 ng-style="listBusChecked[bus] ? { 'text-decoration':'underline' } : { 'text-decoration':'none' }">
+                                                {{ bus }} <br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1" style="margin-left: 2rem;">
+                                        <button ng-show ="!chart1WithoutBus" ng-click="clean()" class="clear-button">Limpar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+
+
+        </div>
+
+        <span us-spinner="{radius:30, width:8, length: 16}"></span>
+
+    </form>
+
+
+
+</div>

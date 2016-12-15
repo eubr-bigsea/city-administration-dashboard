@@ -1,0 +1,35 @@
+
+
+
+<div ng-show="!chart1WithoutTravels && dataIsLoaded" class="esc-grafico">
+
+    <d3-bars switches="switches" data="arc_chart_data" median="medianaDuracao" colors="colors" tip="tip" comparison="null" slider ="slider_translate"></d3-bars>
+
+
+    <div class="centeredswitches">
+        <form class="checkbox-inline" role="form" ng-repeat="item in switches">
+
+            <div class="checkbox">
+                <label>
+                    <switch id="{{item.id}}" ng-model="item.isSelected" ng-style="item.isSelected ? {'background': colors[item.id]['background'], 'border-color': colors[item.id]['border-color']} : {}" ></switch>
+                    {{item.texto}}
+                </label>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<div class="esc-grafico">
+
+    <article style="margin-bottom: 10px;">
+        <rzslider rz-slider-model="slider_translate.minValue" rz-slider-high="slider_translate.maxValue" rz-slider-options="slider_translate.options"></rzslider>
+    </article>
+
+</div>
+
+
+<div ng-show="chart1WithoutTravels" class="esc-grafico">
+    <h2 ng-class="{'without-travels': chart1WithoutTravels}">Rota não possui viagens cadastradas nesta data!</h2>
+</div>

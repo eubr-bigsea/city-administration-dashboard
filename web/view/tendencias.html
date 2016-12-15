@@ -1,0 +1,19 @@
+<div class="all-content">
+
+    <div class="row main-title">
+        <div class="title">TENDÊNCIAS</div>
+    </div>
+
+    <div class="comparacao-container">
+        <div class="row tend-margin textocomp">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            Equivalência da bilhetagem ao longo do tempo
+        </div>
+        <div ng-controller="StackedAreaChart">
+            <nvd3 options="options" data="data"></nvd3>
+        </div>
+    </div>
+    <span us-spinner="{radius:30, width:8, length: 16}"></span>
+
+
+</div>

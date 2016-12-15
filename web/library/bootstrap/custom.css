@@ -1,0 +1,448 @@
+/**** ---------------
+
+----      general style 
+
+----------------- ***/
+
+body {
+     background-color: #fff;
+}
+
+/**** ---------------
+
+----      login page 
+
+----------------- ***/
+
+.containest {
+    width: 40rem;
+    border-radius: 0.5rem;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    margin: 2rem auto;
+    background-color: #fff;
+    padding: 2rem;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.thumbnail {
+    background-color: #2a2c39;
+    border: 0;
+    border-radius: 0;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    margin-bottom: 5rem;
+    
+}
+
+/* texto: login */ 
+login {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif
+    text-align: left;
+	color: #ababab;
+    font-size: 1.7rem;
+    font-weight: 600;
+    padding-left: 1.4rem;
+}
+
+/* esqueceu a senha? */
+.anotacoes {
+    text-align: center;
+    color: #6C7A89;
+    font-style: italic;
+    margin-top: 1.5rem;
+    font-size: 1.2rem;
+}
+
+.anotacoes a:link {
+    color: #7f8c8d;
+    text-decoration: none;  
+}
+
+.anotacoes a:visited {
+    color: #7f8c8d;
+    text-decoration: none;  
+}
+
+.anotacoes a:hover {
+    color: #2a2c39;
+    text-decoration: none;  
+}
+
+/* campos de entrada de texto */
+input {
+	width: 100%;
+	margin-bottom: 1.4rem;
+	padding: 1rem;
+    padding-left: 2.3rem;
+	background-color: #6e6868;
+	border-radius: 0rem;
+	border: none;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+logo {
+    margin-right: 1.69rem;
+    margin-bottom: 7rem;
+    float: right;
+}
+
+/* botão de entrar */
+.btn {
+    border: 0;
+	border-radius: 0rem;
+    margin-top: 2rem;
+}
+
+.login-btn {
+	font-size: 2rem;
+	color: #fff;
+    font-weight: 600;
+}
+
+.full-width {
+	background-color: #f09e38;
+	width: 100%;
+	-webkit-border-top-right-radius: 0;
+	-webkit-border-bottom-right-radius: 0;
+	-moz-border-radius-topright: 0;
+	-moz-border-radius-bottomright: 0;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.box {
+	position: absolute;
+	/*bottom: 0;*/
+    top: 15rem;
+	left: 0;
+	margin-bottom: 3rem;
+	margin-left: 3rem;
+	margin-right: 3rem;
+}
+
+/*
+-webkit-box-shadow: inset -8px 0 8px -14px black;
+	   -moz-box-shadow: inset -8px 0 8px -8px black;
+	        box-shadow: inset -8px 0 8px -8px black;
+    
+    -webkit-box-shadow: inset 0 -8px -8px black;
+        -moz-box-shadow: inset 0 -8px -8px black;
+              box-shadow: inset 0 -8px -8px black; 
+
+.one-edge-shadow {
+    -webkit-box-shadow: inset 30px -5px 62px -46px rgba(0, 0, 0, 0.7);
+    -moz-box-shadow: inset 30px -5px 62px -46px rgba(0, 0, 0, 0.7);
+    -o-box-shadow: inset 30px -5px 62px -46px rgba(0, 0, 0, 0.7);
+        box-shadow: inset 30px -5px 62px -46px rgba(0, 0, 0, 0.7);
+}
+*/
+
+.one-edge-shadow {
+    -webkit-box-shadow: -8px 0 6px -6px black;
+	   -moz-box-shadow: -8px 0 6px -6px black;
+	        box-shadow: -8px 0 7px -6px black;
+}
+
+
+.colorgraph {
+  height: 0.6rem;
+  margin: 0;
+  background: #c4e17f;
+  background-image: -webkit-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+}
+
+
+
+/* make keyframes that tell the start state and the end state of our object */
+@-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+.fade-in {
+	opacity:0;  /* make things invisible upon start */
+	-webkit-animation:fadeIn ease-in 1;  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+	-moz-animation:fadeIn ease-in 1;
+	animation:fadeIn ease-in 1;
+
+	-webkit-animation-fill-mode:forwards;  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+	-moz-animation-fill-mode:forwards;
+	animation-fill-mode:forwards;
+
+	-webkit-animation-duration:1s;
+	-moz-animation-duration:1s;
+	animation-duration:1s;
+}
+
+.fade-in.one {
+-webkit-animation-delay: 0.2s;
+-moz-animation-delay: 0.2s;
+animation-delay: 0.2s;
+}
+
+.fade-in.two {
+-webkit-animation-delay: 1s;
+-moz-animation-delay:1s;
+animation-delay: 1s;
+}
+
+.fade-in.three {
+-webkit-animation-delay: 1.3s;
+-moz-animation-delay: 1.3s;
+animation-delay: 1.3s;
+}
+
+.fade-in.four {
+-webkit-animation-delay: 1.6s;
+-moz-animation-delay: 1.6s;
+animation-delay: 1.6s;
+}
+
+
+
+/**** ---------------
+
+             PAGINAS 
+
+----------------- ***/
+
+
+.navbar {
+    position: fixed;
+    color: #2c3e50;
+    padding-left: 7rem;
+    padding-right: 11rem;
+    padding-top: 2em;
+    padding-bottom: 3rem;
+    font-size: 1.3rem;
+    border: 0;
+    
+    background-color: #fff;
+    color: rgba(1, 1, 1, 0.8);
+    -webkit-box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.3);
+}
+
+
+.navbar a {
+	padding-left: 2rem;
+	padding-right: 2rem;
+	color: #2c3e50;
+	text-decoration: none;
+}
+
+.navbar a:hover {
+	color: grey;
+}
+
+.mainlogo{
+    float: right;
+    top: 0;
+}
+
+.btn-topmenu {
+	background-color: #fff;
+	-webkit-border-top-right-radius: 0;
+	-webkit-border-bottom-right-radius: 0;
+	-moz-border-radius-topright: 0;
+	-moz-border-radius-bottomright: 0;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+
+
+/**** ---------------
+
+    CONTEUDO PAGINAS 
+
+----------------- ***/
+
+
+.container {
+    position: absolute;
+    padding-top: 18rem;
+    width: 100%;
+    border: 0;
+}
+
+.col-md-6 {
+    margin-top: 2rem;
+}
+
+.main-title {
+    background-color: #2c3e50;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+
+.title {
+    color: #fff;
+    margin-left: 5rem;
+    font-size: 1.6rem;
+}
+
+.body-title {
+    color: #fff;
+    padding-top: 1.3rem;
+    padding-bottom: 1.3rem;
+    padding-left: 1.3rem;
+    width: 70%;
+}
+
+.body-title-one {
+    background-color: firebrick;
+}
+
+.body-title-two {
+    background-color: darkslateblue;
+}
+
+.body-title-three {
+    background-color: dodgerblue;
+}
+
+
+.grade {
+    margin: 3%;    
+    margin-top: 1rem;
+}
+
+.content-box {
+    /* incluir sombra aqui */
+}
+
+.content {
+    margin-top: 2rem;
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**** ---------------
+
+----      TESTES 
+
+----------------- ***/
+
+.boxe h3{
+	text-align:center;
+	position:relative;
+	top:80px;
+}
+
+.boxe {
+	width:70%;
+	height:200px;
+	background:#FFF;
+	margin:40px auto;
+    border: 0;
+}
+
+
+.effect6 {
+  	position:relative;       
+    -webkit-box-shadow:0 0px 4px rgba(0, 0, 0, 0.3);
+       -moz-box-shadow:0 0px 4px rgba(0, 0, 0, 0.3);
+            box-shadow:0 0px 4px rgba(0, 0, 0, 0.3);
+                    /* h v blurradius */
+}
+
+/*
+.effect6:before, .effect6:after {
+	content:"";
+    position:absolute; 
+    z-index:-1;
+    -webkit-box-shadow:0 0 10px 1px rgba(0,0,0,0.9);
+       -moz-box-shadow:0 0 10px 1px rgba(0,0,0,0.9);
+            box-shadow:0 0 10px 1px rgba(0,0,0,0.9);
+    top:50%;
+    bottom:0;
+    left:10px;
+    right:10px;
+    -moz-border-radius:200px;
+    border-radius:100px / 10px;
+}
+
+
+
+.navbar-fixed-top {
+    color: #2c3e50;
+    padding-top: 3em;
+    padding-left: 7rem;
+    padding-right: 7rem;
+    font-size: 1.3rem;
+    position:relative; 
+    background-color: #fff;
+    color: rgba(1, 1, 1, 0.8);
+    
+    position: relative;
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+
+.navbar-fixed-top:before, .navbar-fixed-top:after {
+	content:"";
+    position:absolute; 
+    z-index:-1;
+    -webkit-box-shadow:0 0 10px 1px rgba(0,0,0,0.9);
+       -moz-box-shadow:0 0 10px 1px rgba(0,0,0,0.9);
+            box-shadow:0 0 10px 1px rgba(0,0,0,0.9);
+    top:50%;
+    bottom:0;
+    left:10px;
+    right:10px;
+    -moz-border-radius:100px / 10px;
+    border-radius:100px / 10px; 
+}
+
+div com o nome do id
+#slide {
+    position: absolute;
+    left: -100px;
+    width: 100px;
+    height: 100px;
+    background: blue;
+    -webkit-animation: slide 0.5s forwards;
+    -webkit-animation-delay: 2s;
+    animation: slide 0.5s forwards;
+    animation-delay: 2s;
+}
+
+@-webkit-keyframes slide {
+    100% { left: 0; }
+}
+
+@keyframes slide {
+    100% { left: 0; }
+}
+*/
+
+
+
+
+
+

@@ -1,0 +1,204 @@
+<div class="all-content">
+
+    <div class="row main-title">
+            <div class="title"><div class="col-xs-5 nopadding"> NOTIFICAÇÕES RÁPIDAS</div>
+                <div class="col-xs-7">{{delayRankingDate | date:"dd/MM/yyyy"}}</div></div>
+    </div>
+
+    <div class="row esc-seletores">
+
+        <form class="form form-horizontal col-sm-9" ng-submit="update()" name="busca">
+
+            <div class="form-group form-group-md left-info-3">
+
+                <nav class="main-menu">
+                    <ul>
+                        <li>
+                            <a href="#">
+                                <div class="col-sm-1 icon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+
+                                <div class="col-sm-9" style="padding-left: 4rem">
+
+                                    <div class="input-group">
+                                        <div class="input-group-btn">
+                                            <button class="btn pan-btn-panorama" type="button" ng-click="previousDay()"
+                                                    ng-disabled="seletoresIsEnable"><i
+                                                    class="glyphicon glyphicon-minus"></i></button>
+                                        </div>
+
+                                        <input id="calendar" class="form-control pan-btn-panorama" type="text" datepicker-popup="{{format}}"
+                                               ng-model="delayRankingDate" ng-change="update()"
+                                               is-open="status.opened" max-date="maxDate" datepicker-options="dateOptions"
+                                               ng-required="true" close-text="Close" show-button-bar="false"
+                                               ng-disabled="seletoresIsEnable"/>
+
+                                        <div class="input-group-btn float-left">
+                                            <button class="btn pan-btn-panorama" type="button" ng-click="nextDay()"
+                                                    ng-disabled="seletoresIsEnable"><i
+                                                    class="glyphicon glyphicon-plus"></i></button>
+                                        </div>
+
+                                        <button type="button" class="btn pan-btn-panorama" style="padding-left: 2.5rem;" ng-click="open($event)"
+                                                id="calendario" ng-disabled="seletoresIsEnable">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                        </button>
+                                    </div>
+
+                                    <p ng-show="validDate" style="color: red">Digite uma data válida.</p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+            </div>
+
+        </form>
+        <div class="col-sm-3 right-info-2 tip">
+            <i class="glyphicon glyphicon-info-sign" style="font-size: 2rem; float: right; padding-top: 2rem; color: #2C3E50;"></i>
+            <p>Viagens Pontuais são as viagens que foram cumpridas de acordo com a duração determinada pela STTP.<br/>
+                Viagens Cumpridas são as viagens que foram realizadas e previamente determinadas pela STTP.<br/>
+                Viagens Programadas são as viagens que a STTP determinou que deveriam ser realizadas.<br/>
+                Viagens Extras são as viagens que foram realizadas pelas empresas, mas não foram determinadas pela STTP.<br/>
+                Viagens Feitas são todas as viagens que foram realizadas pelas empresas.
+            </p>
+        </div>
+    </div>
+
+
+    <div class="row pan-grade">
+        <div class="col-md-4">
+            <div class="content-box">
+                <div class="body-title roboto" style="background-color: #ff9700">
+                    Ranking da pontualidade do dia {{delayRankingDate | date:"dd/MM/yyyy"}}
+                </div>
+                <div>
+                    <table class="table table-bordered table-hover table-condensed">
+                        <thead>
+                            <tr>
+                                <th  class="col-md-4" ng-repeat="name in header" ng-click="rankingSort(name.type)" style="cursor:pointer;">{{name.name}}
+                                    <span ng-show="sortParameter == name.type && !sortReverse" class="fa fa-caret-down"></span>
+                                    <span ng-show="sortParameter == name.type && sortReverse" class="fa fa-caret-up"></span>
+                                </th>
+
+                            </tr>
+                        </thead>
+
+                        <div ng-init="limit = 5">
+                            <tbody>
+                                <!-- acho que se isso vier ordenado da api o carregamento fica mais rapido -->
+                                <tr ng-repeat="delay in delayRanking | orderBy: sortParameter:sortReverse | limitTo: limit as results "
+                                    ng-click="setRoute(delay.route)" ui-sref="index.conteudo.graficosHorarios" style="cursor:pointer;">
+                                    <td>{{delay.route}}</td>
+                                    <td>{{delay.punctual_travels}}/{{delay.total_of_paired_travels}}</td>
+                                    <td>
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-striped" ng-class="{'progress-bar-info': delay.punctuality_percentage >= 70, 'progress-bar-warning': delay.punctuality_percentage < 70 && delay.punctuality_percentage > 30, 'progress-bar-danger': delay.punctuality_percentage <= 30}" role="progressbar"
+                                                 aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"
+                                                 style='width:{{delay.punctuality_percentage | number: 0}}%'>
+                                                <span>{{delay.punctuality_percentage | number: 0}}%</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </div>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+    <div class="col-md-4">
+        <div class="content-box">
+            <div class="body-title" style="background-color: #00314d">
+                Ranking das viagens cumpridas do dia {{delayRankingDate | date:"dd/MM/yyyy"}}
+            </div>
+                <div>
+                    <table class="table table-bordered table-hover table-condensed">
+                        <thead >
+                            <tr>
+                                <th  class="col-md-4" ng-repeat="name in headerMissing" ng-click="rankingSortMissing(name.type)" style="cursor:pointer;">{{name.name}}
+                                    <span ng-show="sortParameterMissing == name.type && !sortReverseMissing" class="fa fa-caret-down"></span>
+                                    <span ng-show="sortParameterMissing == name.type && sortReverseMissing" class="fa fa-caret-up"></span>
+                                </th>
+
+                            </tr>
+                        </thead>
+
+                        <div ng-init="limit = 5">
+                            <tbody>
+                                <!-- acho que se isso vier ordenado da api o carregamento fica mais rapido -->
+                                <tr ng-repeat="missing in missingTravelsRanking | orderBy: sortParameterMissing:sortReverseMissing | limitTo: limit as results "
+                                    ng-click="setRoute(missing.route)" ui-sref="index.conteudo.graficosHorarios" style="cursor:pointer;">
+                                    <td>{{missing.route}}</td>
+                                    <td>{{missing.total_of_paired_travels}}/{{missing.total_of_frame_schedule}}</td>
+                                    <td>
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-striped" ng-class="{'progress-bar-info': missing.num_missing_travels_percentage >= 70, 'progress-bar-warning': missing.num_missing_travels_percentage < 70 && missing.num_missing_travels_percentage > 30, 'progress-bar-danger': missing.num_missing_travels_percentage <= 30}" role="progressbar"
+                                                 aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"
+                                                 style='width:{{missing.num_missing_travels_percentage | number: 0}}%'>
+                                                <span>{{missing.num_missing_travels_percentage | number: 0}}%</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </div>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="content-box">
+                <div class="body-title" style="background-color: #589589">
+                    Ranking das viagens extras do dia {{delayRankingDate | date:"dd/MM/yyyy"}}
+                </div>
+                <div>
+                    <table class="table table-bordered table-hover table-condensed">
+                        <thead >
+                        <tr>
+                            <th  class="col-md-4" ng-repeat="name in headerExtra" ng-click="rankingSortExtra(name.type)" style="cursor:pointer;">{{name.name}}
+                                <span ng-show="sortParameterExtra == name.type && !sortReverseExtra" class="fa fa-caret-down"></span>
+                                <span ng-show="sortParameterExtra == name.type && sortReverseExtra" class="fa fa-caret-up"></span>
+                            </th>
+
+                        </tr>
+                        </thead>
+
+                        <div ng-init="limit = 5">
+                            <tbody>
+                            <!-- acho que se isso vier ordenado da api o carregamento fica mais rapido -->
+                            <tr ng-repeat="extra in extraTravelsRanking | orderBy: sortParameterExtra:sortReverseExtra | limitTo: limit as results "
+                                ng-click="setRoute(extra.route)" ui-sref="index.conteudo.graficosHorarios" style="cursor:pointer;">
+                                <td>{{extra.route}}</td>
+                                <td>{{extra.num_extra_travels}}/{{extra.total_of_paired_travels + extra.num_extra_travels}}</td>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-striped" ng-class="{'progress-bar-danger': extra.num_extra_travels_percentage >= 70, 'progress-bar-warning': extra.num_extra_travels_percentage < 70 && extra.num_extra_travels_percentage > 30, 'progress-bar-info': extra.num_extra_travels_percentage <= 30}" role="progressbar"
+                                             aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"
+                                             style='width:{{extra.num_extra_travels_percentage | number: 0}}%'>
+                                            <span>{{extra.num_extra_travels_percentage | number: 0}}%</span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </div>
+                    </table>
+                    <button class="btn pan-btn-panorama pull-right" ng-hide="results.length === delayRanking.length" ng-click="limit = limit + 5"><i class="glyphicon glyphicon-plus"></i> Mais</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <!--    <span us-spinner="{radius:30, width:8, length: 16}"></span> -->
+
+</div>

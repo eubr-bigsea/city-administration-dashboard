@@ -1,0 +1,87 @@
+<div class="all-content">
+
+    <div class="row main-title">
+        <div class="title"><div class="col-xs-5 nopadding"> ESCALA</div>
+            <div class="col-xs-7">{{rota.selected}}<span class="separator">|</span>{{dt | date:"dd/MM/yyyy"}}</div></div>
+        </div>
+    </div>
+
+    <!--
+    <div class="esc-menu-lines">
+        <ul>
+            <li>
+                <div class="esc-flag" style="background:#c0392b">
+                    <div class="flag-content">
+                        0
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="esc-flag" style="background:#f39c12">
+                    5
+                </div>
+            </li>
+            <li>
+                <div class="esc-flag" style="background:#d35400">
+                    4
+                </div>
+            </li>
+            <li>
+                <div class="esc-flag" style="background:#2980b9">
+                    2
+                </div>
+            </li>
+            <li>
+                <div class="esc-flag" style="background:#8e44ad">
+                    10
+                </div>
+            </li>
+        </ul>
+    </div> -->
+
+    <div class="row">
+
+        <div class="row">
+            <selectors></selectors>
+        </div>
+
+        <div class="row">
+            <d3-view></d3-view>
+        </div>
+        <br/>
+
+        <div class="row comparacao-container">
+            <div class="comparison-menu">
+                <div class="col-md-2 textocomp nopadding">
+                    COMPARE O GRÁFICO
+                </div>
+                <div class="col-md-10 ">
+                    <a class="textocomp" href="" data-toggle="tab" ng-click="updateComparisonChart('ticketing', 'bilhetagem');" ng-style="currentChart.value == 'bilhetagem' ? { 'text-decoration':'underline' } : { 'text-decoration':'none' }">
+                        Bilhetagem
+                    </a>
+                    <span class="separator">|</span>
+                    <span class="dropdown">
+                        <a class="dropdown-toggle textocomp" data-toggle="dropdown"
+                           data-toggle="tab" href="" ng-style="currentChart.value == 'escala' ? { 'text-decoration':'underline' } : { 'text-decoration':'none' }">Viagens
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" ng-click="updateComparisonChart('typical_day', 'escala')" ng-style="comparisonChart == 'typical_day' ? { 'text-decoration':'underline' } : { 'text-decoration':'none' }">Dia típico</a></li>
+                            <li><a href="#" ng-click="updateComparisonChart('last_three_equal_days', 'escala')" ng-style="comparisonChart == 'last_three_equal_days' ? { 'text-decoration':'underline' } : { 'text-decoration':'none' }">3 {{diaDaSemana}} anteriores</a></li>
+                            <li><a href="#" ng-click="updateComparisonChart('last_week', 'escala')" ng-style="comparisonChart == 'last_week' ? { 'text-decoration':'underline' } : { 'text-decoration':'none' }">Última semana</a></li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-show="currentChart.value == 'escala'"><!-- comparacao -->
+            <visualizacao-monitoramento></visualizacao-monitoramento>
+        </div>
+
+        <div class="row" ng-show="currentChart.value == 'bilhetagem'"><!-- bilhetagem -->
+            <visualizacao-bilhetagem></visualizacao-bilhetagem>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,25 @@
+<div class="row comparacao-container">
+    <br/>
+    <div class="row">
+            <form >
+                <label>
+                    <div class="col-sm-1" ng-click="updateTicketingRadio('grouped')" ng-style="ticketingRadio.value == 'grouped' ? { 'text-decoration':'underline' } : { 'text-decoration':'none' }">
+                        <a  href="#">
+                            Agrupado
+                        </a>
+                    </div>
+                </label><br/>
+                <label>
+                    <div class="col-sm-1" ng-click="updateTicketingRadio('stacked')" ng-style="ticketingRadio.value == 'stacked' ? { 'text-decoration':'underline' } : { 'text-decoration':'none' }">
+                        <a  href="#">
+                        Empilhado
+                        </a>
+                    </div>
+                </label><br/>
+            </form>
+    </div>
+    <d3-stacked-bar data="arc_chart_data" radio="ticketingRadio" tip="tipTicketing"  switches="switches" comparison="currentChart.value" slider ="slider_translate"></d3-stacked-bar>
+</div>
+<br/>
+<br/>
+

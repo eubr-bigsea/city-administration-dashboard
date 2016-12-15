@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+
+    <link href="../library/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="../library/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../library/css/angular-ui-switch.min.css" rel="stylesheet">
+    <link href="style/custom.css" rel="stylesheet">
+    <link href="../library/novus-nvd3-5992b88/build/nv.d3.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Include the Angular JS library -->
+    <script type="text/javascript" src="../library/angular/angular.min.js"></script>
+    <script type="text/javascript" src="../library/angular/angular-ui-router.min.js"></script>
+    <script type="text/javascript" src="../library/angular/ui-bootstrap-tpls-0.13.3.min.js"></script>
+    <script type="text/javascript" src="../library/angular/angular-ui-switch.js"></script>
+    <script type="text/javascript" src="../library/angular/angular-locale_pt-pt.js"></script>
+    <script type="text/javascript" src="../library/js/spin.min.js"></script>
+    <script type="text/javascript" src="../library/angular/angular-spinner.min.js"></script>
+    <script type="text/javascript" src="../library/angular-nvd3-master/dist/angular-nvd3.js"></script>
+    <script type="text/javascript" src="../library/angular/angularjs-slider.js"></script>
+
+    <link href='https://fonts.googleapis.com/css?family=Oxygen:400,300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Raleway:600,400' rel='stylesheet' type='text/css'>
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,500,400italic,400,300italic' rel='stylesheet' type='text/css'>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-sanitize.js"></script>
+
+    <!-- verificar esse import -->
+    <script type="text/javascript" src="../library/js/select.js"></script>
+    <link href="../library/css/select.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.default.css">
+
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../library/js/dist/jquery-2.1.4.min.js"></script>
+    <script src="../library/bootstrap/bootstrap.min.js"></script>
+
+    <!-- d3 -->
+    <script src="../library/d3/d3.min.js"></script>
+    <script src="../library/d3/d3.tip.js"></script>
+    <script src="../library/novus-nvd3-5992b88/build/nv.d3.js"></script>
+
+    <title>Observatório do Transporte</title>
+</head>
+
+<body ng-app="TPAnalytics">
+
+    <div ui-view></div>
+
+    <!--Angular Modules-->
+    <script src="../js/modules/app.js"></script>
+    <!--Angular Controllers-->
+    <script src="../js/controllers/mainController.js"></script>
+    <script src="../js/controllers/d3StackedAreaChartController.js"></script>
+    <script src="../js/controllers/d3ArcChartController.js"></script>
+    <script src="../js/controllers/buscaController.js"></script>
+    <script src="../js/controllers/panoramaController.js"></script>
+    <script src="../js/controllers/loginController.js"></script>
+    <!--Angular Directives-->
+    <script src="../js/directives/loading.js"></script>
+    <script src="../js/directives/menu.js"></script>
+    <script src="../js/directives/selectors.js"></script>
+    <script src="../js/directives/d3View.js"></script>
+    <script src="../js/directives/d3ArcChart.js"></script>
+    <script src="../js/directives/visualizacao_monitoramento.js"></script>
+    <script src="../js/directives/relatorio-rmarkdown.js"></script>
+    <script src="../js/directives/d3StackedBarChart.js"></script>
+    <script src="../js/directives/visualizacao_bilhetagem.js"></script>
+    <!--Angular Services-->
+    <script src="../js/services/diaRotaService.js"></script>
+    <script src="../js/services/diaTipicoService.js"></script>
+    <script src="../js/services/diaTipicoEspecialService.js"></script>
+    <!--<script src="../js/services/diaAnteriorService.js"></script>-->
+    <script src="../js/services/ultimaSemanaService.js"></script>
+    <script src="../js/services/ultimosTresDiasIguaisService.js"></script>
+    <!--<script src="../js/services/ultimosTresDiasService.js"></script>-->
+    <script src="../js/services/diasAnterioresService.js"></script>
+    <script src="../js/services/rotasValidasService.js"></script>
+    <script src="../js/services/rankingDeAtrasosService.js"></script>
+    <script src="../js/services/rankingService.js"></script>
+    <script src="../js/services/loginService.js"></script>
+    <script src="../js/services/apiLinkService.js"></script>
+    <script src="../js/services/timeStocking.js"></script>
+    <!--Angular Configs-->
+    <script src="../js/config/router.js"></script>
+
+</body>
+</html>

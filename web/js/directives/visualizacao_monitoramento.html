@@ -1,0 +1,120 @@
+<div class="row comparacao-container" xmlns="http://www.w3.org/1999/html">
+
+    <div ng-show="!chart2WithoutTravels">
+
+        <div class="right-info" style="margin-right: 3%;">
+            <div class="col-md-2">
+                <div>
+                    <div class="tempStatBox">
+                        <div class="tempStat tip">
+                            <p>Tempo mediano de duração das viagens realizadas neste período.</p>
+                            {{medianaDuracao2}}
+                        </div>
+                        <span>minutos</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div>
+                    <!--<p class="info"style="float:left; margin-top:20px">Valor mediano de duração:</p>-->
+                    <div class="tempStatBox">
+                        <div class="tempStat tip" ng-click = "busClick('corretas')">
+                            <p>Quantidade mediana de viagens corretas neste dia.</p>
+                            {{numViagensCorretas2}}
+                        </div>
+                        <span>corretas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div>
+                    <div class="tempStatBox">
+                        <div class="tempStat tip" ng-click = "busClick('atrasadas')">
+                            <p>Quantidade mediana de viagens atrasadas neste período.</p>
+                            {{numViagensAtrasadas2}}
+                        </div>
+                        <span>atrasadas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div>
+                    <div class="tempStatBox">
+                        <div class="tempStat tip" ng-click = "busClick('extra')">
+                            <p>Quantidade mediana de viagens que não estavam previstas, mas foram realizadas.</p>
+                            {{numViagensExtra2}}
+                        </div>
+                        <span>extra</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div>
+                    <!--<p class="info"style="float:left; margin-top:20px">Faltantes:</p>-->
+                    <div class="tempStatBox">
+                        <div class="tempStat tip" ng-click = "busClick('faltantes')">
+                            <p>Quantidade mediana de viagens que estavam previstas, mas não foram realizadas.</p>
+                            {{numViagensMenos2}}
+                        </div>
+                        <span>faltantes</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div>
+                    <div class="tempStatBox">
+                        <div class="tempStat tip" ng-click = "busClick('total')">
+                            <p>Total mediano de viagens deste período
+                                <br/>
+                                (atrasadas + toleradas + faltantes).</p>
+                            {{numViagens2}}
+                        </div>
+                        <span>total</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <br/>
+        <div class="row">
+            <div class="left-info-2">
+                <form ng-show="isDayType">
+                    <label class="radiocomp">
+                        <div class="col-sm-1" ></div>
+                        <span class="separator" ng-click="updateDiaTipico('all')" ng-style="valueRadio.value == 'all' ? { 'text-decoration':'underline' } : { 'text-decoration':'none' }">
+                            <a href="#">
+                            Todos os dias do mês
+                            </a>
+                        </span>
+                    </label><br/>
+                    <label class="radiocomp">
+                        <div class="col-sm-1" ></div>
+                        <span class="separator" ng-click="updateDiaTipico('special')" ng-style="valueRadio.value == 'special' ? { 'text-decoration':'underline' } : { 'text-decoration':'none' }">
+                            <a href="#">
+                            Dias especiais
+                            </a>
+                        </span>
+                    </label>
+                </form>
+
+            </div>
+
+        </div>
+
+        <d3-bars switches="switches" data="arc_chart_data2" median="medianaDuracao2" colors="colors" tip="tipComparison" comparison="currentChart.value" slider ="slider_translate"></d3-bars>
+    </div>
+
+    <div ng-show="chart2WithoutTravels" class="footer">
+        <div class="row">
+            <h2>Rota não possui viagens cadastradas nesta data.</h2>
+        </div>
+    </div>
+</div>
+<hr>
+
+
