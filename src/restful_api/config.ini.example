@@ -1,0 +1,11 @@
+[Database]
+host = put_host_here
+port = put_port_here
+user = put_user_here
+passwd = put_password_here
+db_name = put_dbname_here
+
+[REST]
+port = put_port_here
+secret_key = put_secret_here
+

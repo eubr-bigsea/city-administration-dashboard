@@ -1,0 +1,11 @@
+[Database]
+host = wwws.cloud.lsd.ufcg.edu.br
+port = 40202
+user = tpanalytics
+passwd = tp4n4lyt1cs-r00t
+db_name = tpanalytics
+
+[REST]
+port = 10500
+secret_key = '!\x1d,\xc0\x12\xc6;\x12\x8bp\xfe\xc5\x1a{\x1f\x08\x10V\xbc\x9e\xedY)\xa8'
+

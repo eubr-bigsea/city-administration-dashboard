@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- jQuery -->
+    <script src="{{ url_for('static', filename='bower_components/jquery/dist/jquery.min.js') }}"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='bower_components/jquery-ui-1.11.4.custom/jquery-ui.css') }}">
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ url_for('static', filename='bower_components/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bower_components/bootstrap-table-1.7.0/src/bootstrap-table.css') }}">
+
+    <title>STTP</title>
+
+    <!-- MetisMenu CSS -->
+    <link href="{{ url_for('static', filename='bower_components/metisMenu/dist/metisMenu.min.css') }}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='dist/css/sb-admin-2.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='dist/css/sttp_style.css') }}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{{ url_for('static', filename='bower_components/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{{ url_for('index') }}">STTP</a>
+                </div>
+                <!-- /.navbar-header -->
+
+                <ul class="nav navbar-top-links navbar-right">
+                    <li>
+                        <a href="{{ url_for('index') }}"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
+                       </li>
+                    <li>
+                        <a href="{{ url_for('escalas') }}"><i class="fa fa-table fa-fw"></i> Escalas</a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('painel_controle') }}"><i class="fa fa-edit fa-fw"></i>  Controle de Usuarios</a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('todas_escalas') }}"><i class="fa fa-table fa-fw"></i>Todas as Escalas</a>
+                    </li>
+                    <!-- /.dropdown -->
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="{{ url_for('logout') }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                            </li>
+                        </ul>
+                        <!-- /.dropdown-user -->
+                    </li>
+                    <!-- /.dropdown -->
+                </ul>
+                <!-- /.navbar-top-links -->
+            </nav>
+        <div class="container">
+            <div id="page-wrapper">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Escalas</h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                Todas as escalas
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="col-lg-7">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="dataTable_wrapper">
+                                                <table class="table table-bordered table-hover display" id="tabela-todas-escalas">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Escalas</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!-- /.table-responsive -->
+                                        </div>
+                                        <!-- /.panel panel-default-->
+                                    </div>
+                                    <!-- /.panel-body -->
+                                </div>
+                                <!-- /.col-lg-7 -->
+                                <div class="col-lg-5">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Filtrar por</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            filtros
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /#page-wrapper -->
+        </div>
+    </div>
+    <!-- /#wrapper -->
+
+
+
+
+    <script src="{{ url_for('static', filename='bower_components/bootstrap-table-1.7.0/dist/bootstrap-table.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bower_components/bootstrap-table-1.7.0/docs/dist/locale/bootstrap-table-pt-BR.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bower_components/bootstrap-table-1.7.0/dist/locale/bootstrap-table-pt-BR.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bower_components/bootstrap-table-1.7.0/src/locale/bootstrap-table-pt-BR.js') }}"></script>
+    <!-- jQuery -->
+    <script src="{{ url_for('static', filename='bower_components/jquery/dist/jquery.min.js') }}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{ url_for('static', filename='bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="{{ url_for('static', filename='bower_components/metisMenu/dist/metisMenu.min.js') }}"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="{{ url_for('static', filename='dist/js/sb-admin-2.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='bower_components/jquery-ui-1.11.4.custom/jquery-ui.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/rest_client.js') }}"></script>
+
+    <script type="text/javascript">
+        var rest = new RestClient();
+
+        function getMesPorExtenso(indiceMes){
+            var mesesDoAno = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+            return mesesDoAno[indiceMes - 1];
+        }
+        
+        $(document).ready(function() {
+            // Find a <table> element with id="tabela-todas-escalas":
+            var table = document.getElementById("tabela-todas-escalas");
+
+            rest.getListaDeEscalas(function (data) {
+                $.each(data, function( index, value ) {
+                    var mes = getMesPorExtenso(value[1]);
+                    var ano = value[2];
+                    var turno = value[3]
+                     // Create an empty <tr> element and add it to the 1st position of the table:
+                    var row = table.insertRow();
+                    // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+                    var cell1 = row.insertCell();
+                    // Add some text to the new cells:
+                    cell1.innerHTML = "<a>"+ mes + "/"+ ano + " - " + turno+"</a>";
+                });
+
+            });
+        });
+    </script>
+
+</body>
+
+</html>

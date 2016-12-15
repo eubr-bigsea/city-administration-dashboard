@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='bower_components/jquery-ui-1.11.4.custom/jquery-ui.css') }}">
+
+    <link href="{{ url_for('static', filename='bower_components/bootstrap-table-1.7.0/src/bootstrap-table.css') }}" rel="stylesheet">
+
+    <title>STTP</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ url_for('static', filename='bower_components/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="{{ url_for('static', filename='bower_components/metisMenu/dist/metisMenu.min.css') }}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='dist/css/sb-admin-2.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='dist/css/sttp_style.css') }}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='bower_components/font-awesome/css/font-awesome.min.css') }}">
+   
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ url_for('index') }}">STTP</a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <a href="{{ url_for('index') }}"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
+                   </li>
+                <li>
+                    <a href="{{ url_for('escalas') }}"><i class="fa fa-table fa-fw"></i> Escalas</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('painel_controle') }}"><i class="fa fa-edit fa-fw"></i>  Controle de Usuarios</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('todas_escalas') }}"><i class="fa fa-table fa-fw"></i>Todas as Escalas</a>
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="{{ url_for('logout') }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+        </nav>
+        <div class="container">
+            <div id="page-wrapper">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Escala dos Fiscais</h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <!-- row -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <span id="title-month"><strong>Mês</strong></span>
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">    
+                                <div class="tabbable"> 
+                                    <ul class="nav nav-tabs" id="my-tabs">  
+                                        <li class="active"><a  href="#manha" data-toggle="tab"> Manhã </a></li>  
+                                        <li class=""><a  href="#tarde" data-toggle="tab"> Tarde </a></li>  
+                                        <li class=""><a href="#noite" data-toggle="tab"> Noite </a></li>  
+                                    </ul>
+                                </div>  
+
+                                <div class="tab-content">
+
+
+                                    <div class="panel" id="fiscais">
+                                        <div class="panel-heading">
+                                            <h2 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#">Fiscais</a>
+                                            </h2>
+                                        </div>
+                                        <div id="collapseOne" class="panel-collapse collapse in">
+                                            <div class="panel-body">
+                                                <ul class="lista-fiscais" id="lista-fiscais">
+                                                </ul>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="table-responsive tab-pane active" id="manha">          
+                                    </div>
+
+                                    <div class="table-responsive tab-pane" id="tarde">          
+                                        <table data-toggle="table" class="table table-bordered table-striped table-hover table-condensed celula" data-height="400" data-pagination="true" data-search="true">
+                                            <thead>
+                                                <tr>
+                                                    <th>DIA</th>
+                                                    <th>Segunda</th>
+                                                    <th>Terça</th>
+                                                    <th>Quarta</th>
+                                                    <th>Quinta</th>
+                                                    <th>Sexta</th>
+                                                    <th>Sábado</th>
+                                                    <th>Domingo</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th>DATA</th>
+                                                    <th id="segunda-t1"></th>
+                                                    <th id="terca-t1"></th>
+                                                    <th id="quarta-t1"></th>
+                                                    <th id="quinta-t1"></th>
+                                                    <th id="sexta-t1"></th>
+                                                    <th id="sabado-t1"></th>
+                                                    <th id="domingo-t1"></th>
+                                                </tr>
+                                                <tr>
+                                                    <th>C. Aurora</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>M.Historico</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Chico Mendes</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>D. Mecânicos</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Ter. Rodoviário</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>UFPB</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Integ. Pedro II</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Integ. Floriano Peixoto</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>DATA</th>
+                                                    <th id="segunda-t2"></th>
+                                                    <th id="terca-t2"></th>
+                                                    <th id="quarta-t2"></th>
+                                                    <th id="quinta-t2"></th>
+                                                    <th id="sexta-t2"></th>
+                                                    <th id="sabado-t2"></th>
+                                                    <th id="domingo-t2"></th>
+                                                </tr>
+                                                <tr>
+                                                    <th>C. Aurora</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>M.Historico</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Chico Mendes</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>D. Mecânicos</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Ter. Rodoviário</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>UFPB</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Integ. Pedro II</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Integ. Floriano Peixoto</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>DATA</th>
+                                                    <th id="segunda-t3"></th>
+                                                    <th id="terca-t3"></th>
+                                                    <th id="quarta-t3"></th>
+                                                    <th id="quinta-t3"></th>
+                                                    <th id="sexta-t3"></th>
+                                                    <th id="sabado-t3"></th>
+                                                    <th id="domingo-t3"></th>
+                                                </tr>
+                                                <tr>
+                                                    <th>C. Aurora</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>M.Historico</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Chico Mendes</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>D. Mecânicos</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Ter. Rodoviário</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>UFPB</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Integ. Pedro II</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Integ. Floriano Peixoto</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>DATA</th>
+                                                    <th id="segunda-t4"></th>
+                                                    <th id="terca-t4"></th>
+                                                    <th id="quarta-t4"></th>
+                                                    <th id="quinta-t4"></th>
+                                                    <th id="sexta-t4"></th>
+                                                    <th id="sabado-t4"></th>
+                                                    <th id="domingo-t4"></th>
+                                                </tr>
+                                                <tr>
+                                                    <th>C. Aurora</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>M.Historico</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Chico Mendes</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>D. Mecânicos</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Ter. Rodoviário</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>UFPB</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Integ. Pedro II</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Integ. Floriano Peixoto</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="table-responsive tab-pane" id="noite">          
+                                        <table data-toggle="table" class="table table-bordered table-striped table-hover table-condensed celula" data-height="400" data-pagination="true" data-search="true">
+                                            <thead>
+                                                <tr>
+                                                    <th>DIA</th>
+                                                    <th>Segunda</th>
+                                                    <th>Terça</th>
+                                                    <th>Quarta</th>
+                                                    <th>Quinta</th>
+                                                    <th>Sexta</th>
+                                                    <th>Sábado</th>
+                                                    <th>Domingo</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th>DATA</th>
+                                                    <th id="segunda-n1"></th>
+                                                    <th id="terca-n1"></th>
+                                                    <th id="quarta-n1"></th>
+                                                    <th id="quinta-n1"></th>
+                                                    <th id="sexta-n1"></th>
+                                                    <th id="sabado-n1"></th>
+                                                    <th id="domingo-n1"></th>
+                                                </tr>
+                                                <tr>
+                                                    <th>C. Aurora</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>M.Historico</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Chico Mendes</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>D. Mecânicos</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Ter. Rodoviário</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>UFPB</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Integ. Pedro II</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Integ. Floriano Peixoto</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>DATA</th>
+                                                    <th id="segunda-n2"></th>
+                                                    <th id="terca-n2"></th>
+                                                    <th id="quarta-n2"></th>
+                                                    <th id="quinta-n2"></th>
+                                                    <th id="sexta-n2"></th>
+                                                    <th id="sabado-n2"></th>
+                                                    <th id="domingo-n2"></th>
+                                                </tr>
+                                                <tr>
+                                                    <th>C. Aurora</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>M.Historico</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Chico Mendes</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>D. Mecânicos</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Ter. Rodoviário</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>UFPB</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Integ. Pedro II</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Integ. Floriano Peixoto</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>DATA</th>
+                                                    <td id="segunda-n3"></td>
+                                                    <td id="terca-n3"></td>
+                                                    <td id="quarta-n3"></td>
+                                                    <td id="quinta-n3"></td>
+                                                    <td id="sexta-n3"></td>
+                                                    <td id="sabado-n3"></td>
+                                                    <td id="domingo-n3"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>C. Aurora</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>M.Historico</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Chico Mendes</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>D. Mecânicos</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Ter. Rodoviário</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>UFPB</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Integ. Pedro II</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Integ. Floriano Peixoto</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>DATA</th>
+                                                    <th id="segunda-n4"></th>
+                                                    <th id="terca-n4"></th>
+                                                    <th id="quarta-n4"></th>
+                                                    <th id="quinta-n4"></th>
+                                                    <th id="sexta-n4"></th>
+                                                    <th id="sabado-n4"></th>
+                                                    <th id="domingo-n4"></th>
+                                                </tr>
+                                                <tr>
+                                                    <th>C. Aurora</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>M.Historico</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Chico Mendes</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>D. Mecânicos</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Ter. Rodoviário</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>UFPB</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Integ. Pedro II</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Integ. Floriano Peixoto</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                
+                            </div>
+                            <!-- panel-body -->
+                        </div>
+                    </div>
+                </div>                           
+                <!-- /.row -->
+            </div>
+            <!-- /#page-wrapper -->
+        </div>
+        <!-- container -->
+    </div>
+    </div>
+    <!-- /#wrapper -->
+</body>
+
+    <!-- jQuery -->
+    <script src="{{ url_for('static', filename='bower_components/jquery/dist/jquery.min.js') }}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{ url_for('static', filename='bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="{{ url_for('static', filename='bower_components/metisMenu/dist/metisMenu.min.js') }}"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="{{ url_for('static', filename='dist/js/sb-admin-2.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='bower_components/jquery-ui-1.11.4.custom/jquery-ui.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='js/rest_client.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/table.js') }}"></script>
+
+    <script>
+        function paginacao(data){
+            var quantidadePontosDeFiscalizacao = data.length;
+            $('.celula').each(function() {
+            var currentPage = 0;
+            var numPerPage = quantidadePontosDeFiscalizacao + 1;
+            var $table = $(this);
+            $table.bind('repaginate', function() {
+                $table.find('tbody tr').hide().slice(currentPage * numPerPage, (currentPage + 1) * numPerPage).show();
+            });
+            $table.trigger('repaginate');
+            var numRows = $table.find('tbody tr').length;
+            var numPages = Math.ceil(numRows / numPerPage);
+            var $pager = $('<div class="pager"></div>');
+            for (var page = 0; page < numPages; page++) {
+                page + 1;
+                var realPage = page + 1;
+                var strPage = "Semana " + realPage;
+                $('<button type="button" class="page-number btn btn-default btn-sm"></button>').text(strPage).bind('click', {
+                    newPage: page
+                }, function(event) {
+                    currentPage = event.data['newPage'];
+                    $table.trigger('repaginate');
+                    $(this).addClass('active').siblings().removeClass('active');
+                }).appendTo($pager).addClass('clickable');
+            }
+            $pager.insertAfter($table).find('button.page-number:first').addClass('active');
+            });
+
+        }
+
+        function dragAndDrop() {
+            $( "#fiscais" ).accordion({
+                collapsible: true,
+                active: false
+            });
+            $( "#fiscais li" ).draggable({
+            appendTo: "body",
+            helper: "clone"
+            });
+            $( ".celula tbody tr td ").droppable({
+                hoverClass: "ui-state-hover",
+                accept: ":not(.ui-sortable-helper)",
+                drop: function( event, ui ) {
+                $(this).find("span").remove();
+                $( "<span class='replaceme'></span>" ).text( ui.draggable.text()).appendTo( this );
+            }
+            });
+        }
+
+
+        $( document ).ready(function() {
+            var geradorEscala = new CalendarioEscala("manha", 1, 2016);
+            geradorEscala.draw();
+            var rest = new RestClient();
+
+
+            rest.getTodosFiscais(function (data){
+
+                var listaFiscais = $("#lista-fiscais");
+                for (var i = 0; i< data.length; i++) {
+                    var li = $("<li />");
+                    li.html(data[i][2]);
+                    (li).appendTo(listaFiscais);
+                }
+            });
+
+            rest.getLocaisDeFiscalizacoes(function (data){
+                geradorEscala.preencher(data);
+
+                paginacao(data);
+                dragAndDrop();
+
+            });
+
+
+
+            var Calendar = new Date();
+            var month_of_year = new Array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro');
+            var day_of_week = new Array('Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado');
+
+            var month = Calendar.getMonth();
+
+            // mês e ano no título da tabela
+            $("#title-month").html("<strong>" + month_of_year[month] + " de " + (Calendar.getFullYear()) + "</strong>");
+
+            Calendar.setDate(1);
+
+            var primeiraSegunda = false;
+            while(!primeiraSegunda){
+                if(day_of_week[Calendar.getDay()] == "Segunda"){
+                    $("#segunda-m1").html(Calendar.getDate());
+                    $("#segunda-t1").html(Calendar.getDate());
+                    $("#segunda-n1").html(Calendar.getDate());
+                    primeiraSegunda = true;
+                }
+                Calendar.setDate(Calendar.getDate()+1);
+            };
+
+            var semana = 1;
+            var fimDoMes = false;
+            while(!fimDoMes){
+                if(Calendar.getDate() == 1)
+                    fimDoMes = true;
+                else{
+                    if(day_of_week[Calendar.getDay()] == "Segunda"){
+                        $("#segunda-m" + semana).html(Calendar.getDate());
+                        $("#segunda-t" + semana).html(Calendar.getDate());
+                        $("#segunda-n" + semana).html(Calendar.getDate());
+                    }
+                    else if(day_of_week[Calendar.getDay()] == "Terça"){
+                        $("#terca-m" + semana).html(Calendar.getDate());
+                        $("#terca-t" + semana).html(Calendar.getDate());
+                        $("#terca-n" + semana).html(Calendar.getDate());
+                    }
+                    else if(day_of_week[Calendar.getDay()] == "Quarta"){
+                        $("#quarta-m" + semana).html(Calendar.getDate());
+                        $("#quarta-t" + semana).html(Calendar.getDate());
+                        $("#quarta-n" + semana).html(Calendar.getDate());
+                    }
+                    else if(day_of_week[Calendar.getDay()] == "Quinta"){
+                        $("#quinta-m" + semana).html(Calendar.getDate());
+                        $("#quinta-t" + semana).html(Calendar.getDate());
+                        $("#quinta-n" + semana).html(Calendar.getDate());
+                    }
+                    else if(day_of_week[Calendar.getDay()] == "Sexta"){
+                        $("#sexta-m" + semana).html(Calendar.getDate());
+                        $("#sexta-t" + semana).html(Calendar.getDate());
+                        $("#sexta-n" + semana).html(Calendar.getDate());
+                    }
+                    else if(day_of_week[Calendar.getDay()] == "Sábado"){
+                        $("#sabado-m" + semana).html(Calendar.getDate());
+                        $("#sabado-t" + semana).html(Calendar.getDate());
+                        $("#sabado-n" + semana).html(Calendar.getDate());
+                    }
+                    else if(day_of_week[Calendar.getDay()] == "Domingo"){
+                        $("#domingo-m" + semana).html(Calendar.getDate());
+                        $("#domingo-t" + semana).html(Calendar.getDate());
+                        $("#domingo-n" + semana).html(Calendar.getDate());
+                        semana += 1;
+                    }
+                }
+                Calendar.setDate(Calendar.getDate()+1);
+            };
+        });
+
+
+
+    </script>
+
+</html>
