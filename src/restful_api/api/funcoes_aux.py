@@ -10,24 +10,7 @@ from api import app
 from flask import abort, request, make_response, Response
 import unicodedata
 import copy
-from math import radians, cos, sin, asin, sqrt
 
-
-# Dados dois pontos no formato (latitude,longitude), calcula a distância de Haversine (distância entre dois pontos na superfície de uma esfera, no caso: a terra).
-def haversine_dist(lon1, lat1, lon2, lat2):
-    """
-    Calculate the great circle distance (in meters) between two points 
-    on the earth (specified in decimal degrees)
-    """
-    # convert decimal degrees to radians 
-    lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
-    # haversine_dist formula 
-    dlon = lon2 - lon1 
-    dlat = lat2 - lat1 
-    a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
-    c = 2 * asin(sqrt(a)) 
-    dist = 6367000 * c
-    return dist
 
 # Dado um conjunto de linhas e o cabecario, monta uma lista de dicionarios
 def montaListaJson(spamreader, col):
@@ -73,10 +56,10 @@ def get_travels(date,bus):
 
 # Dado uma data e um onibus (4 digitos) retorna uma lista de dicionarios com todas as viagens daquela data
 def get_travels_and_ticketing(date,bus):
-    query = "SELECT v.rota,v.data,v.saida,v.chegada,v.duracao,v.numero_onibus,v.operador,b.passageiros,b.estudantes,b.gratuitos,b.equivalencia,v.stop_lat,v.stop_lon, v.initial_stop_id "\
+    query = "SELECT v.rota,v.data,v.saida,v.chegada,v.duracao,v.numero_onibus,v.operador,b.passageiros,b.estudantes,b.gratuitos,b.equivalencia "\
     "FROM tb_viagem v, tb_bilhetagem b WHERE data = %s and rota = %s and v.id_bilhetagem = b.id ORDER BY saida;"
     rows = bd.consulta(query, (date,bus))
-    col=["rota","data","saida","chegada","duracao","numero_onibus","operador","passageiros", "estudantes","gratuitos","equivalencia","stop_lat","stop_lon", "initial_stop_id"]
+    col=["rota","data","saida","chegada","duracao","numero_onibus","operador","passageiros", "estudantes","gratuitos","equivalencia"]
     return montaListaJson(rows, col)
 
 def get_all_routes():
@@ -87,10 +70,10 @@ def get_all_routes():
 
 # Dado uma data e um onibus (4 digitos) retorna uma lista de dicionarios com todas as viagens daquela data
 def get_travels_analysis(date,bus):
-    query = "SELECT v.rota,v.data,v.saida,v.chegada,v.duracao,v.numero_onibus,v.operador,e.nome,l.nome, v.initial_stop_id FROM tb_viagem v, tb_onibus o, tb_empresa e, tb_rota r,tb_linha l "\
+    query = "SELECT v.rota,v.data,v.saida,v.chegada,v.duracao,v.numero_onibus,v.operador,e.nome,l.nome FROM tb_viagem v, tb_onibus o, tb_empresa e, tb_rota r,tb_linha l "\
     "  WHERE v.data = %s and v.rota = %s and v.numero_onibus=o.numero and o.empresa=e.id and v.rota=r.rota and r.linha=l.id ORDER BY saida;"
     rows = bd.consulta(query, (date,bus))
-    col=["rota","data","saida","chegada","duracao","numero_onibus","operador","nome_empresa", "nome_linha", "initial_stop_id"]
+    col=["rota","data","saida","chegada","duracao","numero_onibus","operador","nome_empresa", "nome_linha"]
     return montaListaJson(rows, col)
 
 # Dado retorna a última data que tem dados, uma lista de rotas e uma lista de dicionarios com todas as viagens daquela data
@@ -106,7 +89,7 @@ def get_all_travels(ranking_date):
                  "rota IN (SELECT DISTINCT id_rota FROM tb_quadro_horario_2 WHERE id_rota != 'TIC-0001') " \
                  "ORDER BY rota, saida;" % ranking_date
     rows = bd.consulta(query)
-    cols = ["id","rota","data","saida","chegada","duracao","numero_onibus","operador","id_bilhetagem","initial_stop_id","stop_lat","stop_lon"]
+    cols = ["id","rota","data","saida","chegada","duracao","numero_onibus","operador","id_bilhetagem"]
 
     date = rows[0][2]
 
@@ -128,7 +111,7 @@ def get_all_travels(ranking_date):
 def get_frame_schedules(date,bus):
     day_type = schedule_day_type(date)
 
-    query = "SELECT qh.id, qh.tipo_dia, h.hora_onibus AS saida, ADDTIME(h.hora_onibus, SEC_TO_TIME(duracao)) AS chegada , qh.duracao, qh.tamanho_da_viagem, h.stop_lat, h.stop_lon, qh.id_rota, h.id_parada " \
+    query = "SELECT qh.id, qh.tipo_dia, h.hora_onibus AS saida, ADDTIME(h.hora_onibus, SEC_TO_TIME(duracao * 60)) AS chegada , qh.duracao, qh.tamanho_da_viagem, qh.id_rota " \
             "FROM tb_quadro_horario_2 AS qh, tb_horario_quadro_horario AS h " \
             "WHERE qh.id = h.id_quadro_horario " \
             "AND qh.tipo_dia = %s " \
@@ -136,7 +119,7 @@ def get_frame_schedules(date,bus):
             "AND h.indice_viagem = 1 " \
             "ORDER BY hora_onibus, duracao;"
     rows = bd.consulta(query, (day_type,bus))
-    col=["id","tipo_dia","saida","chegada","duracao","tamanho_da_viagem","stop_lat","stop_lon","id_rota","id_parada"]
+    col=["id","tipo_dia","saida","chegada","duracao","tamanho_da_viagem","id_rota"]
 
     return montaListaJson(rows, col)
 
@@ -144,7 +127,7 @@ def get_frame_schedules(date,bus):
 def get_all_frame_schedules(date):
     day_type = schedule_day_type(date)
 
-    query = "SELECT qh.id, qh.tipo_dia, h.hora_onibus AS saida, ADDTIME(h.hora_onibus, SEC_TO_TIME(duracao)) AS chegada , qh.duracao, qh.tamanho_da_viagem, h.stop_lat, h.stop_lon, qh.id_rota, h.id_parada " \
+    query = "SELECT qh.id, qh.tipo_dia, h.hora_onibus AS saida, ADDTIME(h.hora_onibus, SEC_TO_TIME(duracao * 60)) AS chegada , qh.duracao, qh.tamanho_da_viagem, qh.id_rota " \
             "FROM tb_quadro_horario_2 AS qh, tb_horario_quadro_horario AS h " \
             "WHERE qh.id = h.id_quadro_horario " \
             "AND qh.tipo_dia = %s " \
@@ -152,12 +135,12 @@ def get_all_frame_schedules(date):
             "AND h.indice_viagem = 1 " \
             "ORDER BY id_rota, hora_onibus, duracao;"
     rows = bd.consulta(query, (day_type))
-    cols = ["id","tipo_dia","saida","chegada","duracao","tamanho_da_viagem","stop_lat","stop_lon","id_rota","id_parada"]
+    cols = ["id","tipo_dia","saida","chegada","duracao","tamanho_da_viagem","id_rota"]
 
     routes_schedules = {}
 
     for row in rows:
-        route = row[8]
+        route = row[6]
 
         if route not in routes_schedules:
             routes_schedules[route] = []
@@ -495,18 +478,21 @@ def create_travels_comparison(travels, frame_schedules):
             paireds.append((travel, None))
         return paireds
 
-    headway = datetime.timedelta(minutes=30)
+    headway = datetime.timedelta(seconds=300)
 
     for i in range(len(frame_schedules)):
         frame_schedules[i]["is_paired"] = False
+
+        if i < len(frame_schedules) - 1:
+            headway = abs(frame_schedules[i + 1]["saida"] - frame_schedules[i]["saida"])
+
         frame_schedules[i]["probably_paireds"] = []
 
         for j in range(len(travels)):
             travels[j]["is_paired"] = False
 
             if abs(frame_schedules[i]["saida"] - travels[j]["saida"]) <= headway:
-				if haversine_dist(float(frame_schedules[i]["stop_lon"]),float(frame_schedules[i]["stop_lat"]),float(travels[j]["stop_lon"]),float(travels[j]["stop_lat"])) < 100:
-					frame_schedules[i]["probably_paireds"].append(j)
+                frame_schedules[i]["probably_paireds"].append(j)
 
     for schedule in frame_schedules:
         if len(schedule["probably_paireds"]) == 0:
@@ -517,70 +503,9 @@ def create_travels_comparison(travels, frame_schedules):
             changed = False
 
             for index in schedule["probably_paireds"]:
-				tdiff = abs(schedule["saida"] - travels[index]["saida"])
-				min_tdiff = abs(schedule["saida"] - travels[min_value]["saida"])
-				dist = haversine_dist(float(schedule["stop_lon"]),float(schedule["stop_lat"]),float(travels[index]["stop_lon"]),float(travels[index]["stop_lat"]))
-				min_dist = haversine_dist(float(schedule["stop_lon"]),float(schedule["stop_lat"]),float(travels[min_value]["stop_lon"]),float(travels[min_value]["stop_lat"]))
-				
-				if not travels[index]["is_paired"] and  ((dist < min_dist) or (dist == min_dist and tdiff < min_tdiff)):
-					min_value = index
-					changed = True
-
-            if changed:
-                paireds.append((travels[min_value], schedule))
-                schedule["is_paired"] = True
-                travels[min_value]["is_paired"] = True
-            else:
-                paireds.append((None, schedule))
-
-    for travel in travels:
-        if not travel["is_paired"]:
-            paireds.append((travel, None))
-
-    for paired in paireds:
-        if paired[1] is not None:
-            del paired[1]["probably_paireds"]
-
-    return paireds
-
-# Para cada viagem feita, parear com o mais proximo da tabela
-def create_travels_comparison_stop_id(travels, frame_schedules):
-    
-    paireds = []
-
-    if len(frame_schedules) == 0:
-        for travel in travels:
-            paireds.append((travel, None))
-        return paireds
-
-    headway = datetime.timedelta(minutes=30)
-
-    for i in range(len(frame_schedules)):
-        frame_schedules[i]["is_paired"] = False
-        frame_schedules[i]["probably_paireds"] = []
-
-        for j in range(len(travels)):
-            travels[j]["is_paired"] = False
-
-            if abs(frame_schedules[i]["saida"] - travels[j]["saida"]) <= headway:
-				if (frame_schedules[i]["id_parada"] == travels[j]["initial_stop_id"]):
-					frame_schedules[i]["probably_paireds"].append(j)
-
-    for schedule in frame_schedules:
-        if len(schedule["probably_paireds"]) == 0:
-            paireds.append((None, schedule))
-
-        else:
-            min_value = schedule["probably_paireds"][0]
-            changed = False
-
-            for index in schedule["probably_paireds"]:
-				tdiff = abs(schedule["saida"] - travels[index]["saida"])
-				min_tdiff = abs(schedule["saida"] - travels[min_value]["saida"])
-				
-				if not travels[index]["is_paired"] and  (tdiff <= min_tdiff):
-					min_value = index
-					changed = True
+                if not travels[index]["is_paired"] and abs(schedule["saida"] - travels[index]["saida"]) <= abs(schedule["saida"] - travels[min_value]["saida"]):
+                    min_value = index
+                    changed = True
 
             if changed:
                 paireds.append((travels[min_value], schedule))
@@ -671,8 +596,7 @@ def create_json_final_analysis(travels,frame_schedules,date,bus):
 
 # Dado as viagens, o horario da tabela, uma data e um onibus (4 digitos) retorna um json usado no gráfico do site
 def create_json_final(travels,frame_schedules,date,bus):
-    #paireds = create_travels_comparison(travels,frame_schedules)
-    paireds = create_travels_comparison_stop_id(travels,frame_schedules)
+    paireds = create_travels_comparison(travels,frame_schedules)
 
     dict_final = create_dict_final(paireds,date,bus)
 
@@ -797,18 +721,16 @@ def delay_ranking(ranking_date):
             del missing_frame_schedules[route]
         except:
             frame_schedules = []
-
             
-        #paireds = create_travels_comparison(travels,frame_schedules)
-        paireds = create_travels_comparison_stop_id(travels,frame_schedules)
+        paireds = create_travels_comparison(travels,frame_schedules)
 
         # deve ser colocado viagens a mais e a menos em um possível grafico de barra
         for i in range(len(paireds) - 1, -1, -1):
-            if paireds[i][0] is None: #missing trip
+            if paireds[i][0] is None:
                 num_missing_travels += 1
                 paireds.pop(i)
 
-            elif paireds[i][1] is None: #extra trip
+            elif paireds[i][1] is None:
                 num_extra_travels += 1
                 paireds.pop(i)
 

@@ -1,11 +1,10 @@
 [Database]
-host = wwws.cloud.lsd.ufcg.edu.br
-port = 40202
-user = tpanalytics
-passwd = tp4n4lyt1cs-r00t
-db_name = tpanalytics
+host = put_host_here # host/ip do bd. Exemplos: 143.41.34.145 , enderecodobanco.com
+port = put_port_here # porta em que o bd está sendo executado. Exemplo: 10333
+user = put_user_here # nome do usuário do bd. Exemplo: cganalytics
+passwd = put_password_here # senha do usuário do bd. Exemplo: senhadobanco
+db_name = put_dbname_here # nome do esquema do banco. Exemplo: tpanalytics
 
 [REST]
-port = 10500
-secret_key = '!\x1d,\xc0\x12\xc6;\x12\x8bp\xfe\xc5\x1a{\x1f\x08\x10V\xbc\x9e\xedY)\xa8'
-
+port = put_port_here # porta em que a REST ficará disponível
+secret_key = put_secret_here # chave secreta para criptografar a sessão - essa chave não pode ser pública e só deve constar aqui
