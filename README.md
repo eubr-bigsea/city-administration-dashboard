@@ -1,6 +1,6 @@
-# Public Transport Observatorium
+# City Administration Dashboard
 
-Analytics and Visualization tool for bus trips of a Public Transport System.
+City Administration Dashboard is an application that uses Analytics and Visualization techniques on historical data of bus trips of a Public Transport System in order to assist e facilitate planning and monitoring the system.
 
 ## Features
 
