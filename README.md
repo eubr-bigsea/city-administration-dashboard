@@ -31,7 +31,7 @@ This task uses essentially the start time of both trips. The scheduled trip is p
 
 # Architecture
 <div style="display:table-cell; vertical-align:middle; text-align:center">
-  <img src="https://drive.google.com/open?id=0ByJXvHckLkTdbEZCWWl6MF9GcnM" alt="Drawing" align="center"/>
+  <img src="https://lh6.googleusercontent.com/sYMv9aq_hWDT6UdSwMxt7v-U6Z5l0trE2s8rQg7-tWYGqwmdGrCckCEwTp811pZsSnJ2yuDfeVwjaNQ=w1920-h950-rw" alt="Drawing" align="center"/>
 </div>
 
 ## Installation/Configuration
