@@ -29,8 +29,6 @@ In order to split execution data in trips we use an algorithm that measure the s
 
 This task uses essentially the start time of both trips. The scheduled trip is paired with the perfomed trip with the closest start time, as long as the difference between them do not exceed the scheduled trip headway. The headway of a scheduled trip is the time diffence, in minutes, betweew it start time and the start time of the next scheduled trip.
 
-## Trip visualization
-
 # Architecture
 <div style="display:table-cell; vertical-align:middle; text-align:center">
   <img src="https://drive.google.com/open?id=0ByJXvHckLkTdbEZCWWl6MF9GcnM" alt="Drawing" align="center"/>
