@@ -17,6 +17,22 @@ City Administration Dashboard is an application that uses Analytics and Visualiz
 - Analysis can be filtered by bus, date and route
 - Ticketing data analysis is also available per route and per company
 
+## Preprocessing
+
+All features listed above depends on having execution data linked with scheduled data. Obtaining that kind of data requires two steps of data processing. The first one is to identify all perfomed trips on execution data, e.g. GPS data. The second step is identifying which perfomed trip fulfilled which scheduled trip.
+
+### Finding trips on execution data
+
+In order to split execution data in trips we use an algorithm that measure the similarity of a sequence of GPS coordinates to the shapes of all routes on the system.
+
+### Pairing performed and scheduled trips
+
+This task uses essentially the start time of both trips. The scheduled trip is paired with the perfomed trip with the closest start time, as long as the difference between them do not exceed the scheduled trip headway. The headway of a scheduled trip is the time diffence, in minutes, betweew it start time and the start time of the next scheduled trip.
+
+## Trip visualization
+
+
+
 ## Installation/Configuration
 
 ### 1 - Launching REST API Server
