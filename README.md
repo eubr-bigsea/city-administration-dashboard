@@ -1,6 +1,6 @@
 # City Administration Dashboard
 
-City Administration Dashboard is an application that uses Analytics and Visualization techniques on historical data of bus trips of a Public Transport System in order to assist e facilitate planning and monitoring the system.
+City Administration Dashboard is an application that uses Analytics and Visualization techniques on historical data of bus trips of a Public Transport System in order to assist and facilitate planning and monitoring the system.
 
 ## Features
 
@@ -19,15 +19,15 @@ City Administration Dashboard is an application that uses Analytics and Visualiz
 
 ## Preprocessing
 
-All features listed above depends on having execution data linked with scheduled data. Obtaining that kind of data requires two steps of data processing. The first one is to identify all perfomed trips on execution data, e.g. GPS data. The second step is identifying which perfomed trip fulfilled which scheduled trip.
+All features listed above depends on the availability of execution data linked with scheduled data. Obtaining that kind of data requires two steps of data processing. The first one is to identify all perfomed trips on execution data, e.g. GPS data. The second step is match the actual trips with the scheduled trips..
 
 ### Finding trips on execution data
 
-In order to split execution data in trips we use an algorithm that measure the similarity of a sequence of GPS coordinates to the shapes of all routes on the system.
+In order to split execution data in trips we use an algorithm that measures the similarity of a sequence of GPS coordinates to the shapes of all routes on the system.
 
 ### Pairing performed and scheduled trips
 
-This task uses essentially the start time of both trips. The scheduled trip is paired with the perfomed trip with the closest start time, as long as the difference between them do not exceed the scheduled trip headway. The headway of a scheduled trip is the time diffence, in minutes, betweew it start time and the start time of the next scheduled trip.
+This task uses essentially the starting time of both trips. The scheduled trip is paired with the perfomed trip with the closest start time, as long as the difference between them do not exceed the scheduled trip headway. The headway of a scheduled trip is the time diffence, in minutes, betweew its start time and the start time of the next scheduled trip.
 
 # Architecture
 <div style="display:table-cell; vertical-align:middle; text-align:center">
