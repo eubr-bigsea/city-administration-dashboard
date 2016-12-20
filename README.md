@@ -18,24 +18,17 @@ All the data used on each ranking refers to the current day by default but can b
 
 ### Routes daily operation
 
+After looking at information about the system as a whole, you can investigate how was each route operation. The feature called "Escala" displays all performed and scheduled trips on a arch graphic where each trips is shown as an arch.
+
 <div style="display:table-cell; vertical-align:middle; text-align:center">
   <img src="https://drive.google.com/uc?id=0ByJXvHckLkTdVXlOdnQxdkFDTTg" alt="Drawing" align="center"/>
 </div>
 
-After looking at information about the system as a whole, you can investigate how was each route operation. The feature called "Escala" displays all performed and scheduled trips on a arch graphic where each trips is shown as an arch. The x axis represents the hour of the day. By the arch color you will be able to notice if the trip performed on time or late, if the trip did not perform any scheduled trip or if a scheduled trip was not performed at all also called missing trips.
+The x axis represents the hour of the day. By the arch color you will be able to notice if the trip performed on time or late, if the trip did not perform any scheduled trip or if a scheduled trip was not performed at all also called missing trips.
 
 On the top left corner you can filter the visualization by route, date and bus. On the top right corner you can see a operation summary of the current selection. From the left to the right: median duration of a trip, amount of trips performed on time, amount of delayed trips, amount of extra trips, amount of missing trips and the amount of trips performed that day.
 
 The slider on the bottom let you filter all shown trips by their starting time.
-
-- Trips classified as:
-    + On time
-    + Late
-    + Extra
-    + Missing
-- Trips are shown in a nice, interactive and easy manner
-- Analysis can be filtered by bus, date and route
-- Ticketing data analysis is also available per route and per company
 
 ## Preprocessing
 
