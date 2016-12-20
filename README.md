@@ -19,7 +19,7 @@ All the data used on each ranking refers to the current day by default but can b
 ### Routes daily operation
 
 <div style="display:table-cell; vertical-align:middle; text-align:center">
-  <img src="https://drive.google.com/uc?id=0B3NoFHg_3tQrVDBzQVZDT29zZTg" alt="Drawing" align="center"/>
+  <img src="https://drive.google.com/uc?id=0ByJXvHckLkTdVXlOdnQxdkFDTTg" alt="Drawing" align="center"/>
 </div>
 
 After looking at information about the system as a whole, you can investigate how was each route operation. The feature called "Escala" displays all performed and scheduled trips on a arch graphic where each trips is shown as an arch. The x axis represents the hour of the day. By the arch color you will be able to notice if the trip performed on time or late, if the trip did not perform any scheduled trip or if a scheduled trip was not performed at all also called missing trips.
@@ -51,7 +51,7 @@ This task uses essentially the starting time of both trips. The scheduled trip i
 
 # Architecture
 <div style="display:table-cell; vertical-align:middle; text-align:center">
-  <img src="https://drive.google.com/uc?id=0B3NoFHg_3tQrVDBzQVZDT29zZTg" alt="Drawing" align="center"/>
+  <img src="https://drive.google.com/uc?id=0ByJXvHckLkTdbEZCWWl6MF9GcnM" alt="Drawing" align="center"/>
 </div>
 
 ## Installation/Configuration
