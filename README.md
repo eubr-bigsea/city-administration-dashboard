@@ -9,7 +9,7 @@ City Administration Dashboard is an application that uses Analytics and Visualiz
 One of the dashboard visualizations is a ranking of the system routes. The intention is to provide a fast and simple way to identify if a route is performing according to the schedule.
 
 <div style="display:table-cell; vertical-align:middle; text-align:center">
-  <img src="https://drive.google.com/file/d/0ByJXvHckLkTdc0dTNEZTNHgxOFU/view?usp=sharing" alt="Drawing" align="center"/>
+  <img src="https://drive.google.com/uc?id=0ByJXvHckLkTdc0dTNEZTNHgxOFU" alt="Drawing" align="center"/>
 </div>
 
 On the left ranking, you can see the route punctuality. Route punctuality is basically the percentage of performed trips that were performed without delays. The middle ranking shows the schedule fulfillment, in other words, how many scheduled trips were in fact preformed. On the right ranking, you can see how many performed trips did not have an associated scheduled trip also called extra trips. 
