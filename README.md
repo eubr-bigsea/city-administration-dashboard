@@ -4,6 +4,16 @@ City Administration Dashboard is an application that uses Analytics and Visualiz
 
 ## Features
 
+### Rankings
+
+One of the dashboard visualizations is a ranking of the system routes. The intention is to provide a fast and simple way to identify if a route is performing according to the schedule.
+
+<div style="display:table-cell; vertical-align:middle; text-align:center">
+  <img src="https://lh5.googleusercontent.com/l847SqkMk7XUP2Wv0L3LplwnsU2L4JqyjLNwOjkZE0pSIWr9haOlpnFkxoQAn_Q_7Nuy3uDS7VQLieU=w1920-h950-rw" alt="Drawing" align="center"/>
+</div>
+
+On the left ranking, you can see the route punctuality. Route punctuality is basically the percentage of performed trips that were performed without delays. The middle ranking shows the schedule fulfillment, in other words, how many scheduled trips were in fact preformed. On the right ranking, you can see how many performed trips did not have an associated scheduled trip. 
+
 - Trips classified as:
     + On time
     + Late
@@ -19,7 +29,7 @@ City Administration Dashboard is an application that uses Analytics and Visualiz
 
 ## Preprocessing
 
-All features listed above depends on the availability of execution data linked with scheduled data. Obtaining that kind of data requires two steps of data processing. The first one is to identify all perfomed trips on execution data, e.g. GPS data. The second step is match the actual trips with the scheduled trips..
+All features listed above depends on the availability of execution data linked with scheduled data. Obtaining that kind of data requires two steps of data processing. The first one is to identify all performed trips on execution data, e.g. GPS data. The second step is match the actual trips with the scheduled trips..
 
 ### Finding trips on execution data
 
@@ -27,7 +37,7 @@ In order to split execution data in trips we use an algorithm that measures the 
 
 ### Pairing performed and scheduled trips
 
-This task uses essentially the starting time of both trips. The scheduled trip is paired with the perfomed trip with the closest start time, as long as the difference between them do not exceed the scheduled trip headway. The headway of a scheduled trip is the time diffence, in minutes, betweew its start time and the start time of the next scheduled trip.
+This task uses essentially the starting time of both trips. The scheduled trip is paired with the performed trip with the closest start time, as long as the difference between them do not exceed the scheduled trip headway. The headway of a scheduled trip is the time diffence, in minutes, betweew its start time and the start time of the next scheduled trip.
 
 # Architecture
 <div style="display:table-cell; vertical-align:middle; text-align:center">
