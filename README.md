@@ -9,20 +9,30 @@ City Administration Dashboard is an application that uses Analytics and Visualiz
 One of the dashboard visualizations is a ranking of the system routes. The intention is to provide a fast and simple way to identify if a route is performing according to the schedule.
 
 <div style="display:table-cell; vertical-align:middle; text-align:center">
-  <img src="https://lh5.googleusercontent.com/l847SqkMk7XUP2Wv0L3LplwnsU2L4JqyjLNwOjkZE0pSIWr9haOlpnFkxoQAn_Q_7Nuy3uDS7VQLieU=w1920-h950-rw" alt="Drawing" align="center"/>
+  <img src="https://drive.google.com/uc?id=0B3NoFHg_3tQrVDBzQVZDT29zZTg" alt="Drawing" align="center"/>
 </div>
 
-On the left ranking, you can see the route punctuality. Route punctuality is basically the percentage of performed trips that were performed without delays. The middle ranking shows the schedule fulfillment, in other words, how many scheduled trips were in fact preformed. On the right ranking, you can see how many performed trips did not have an associated scheduled trip. 
+On the left ranking, you can see the route punctuality. Route punctuality is basically the percentage of performed trips that were performed without delays. The middle ranking shows the schedule fulfillment, in other words, how many scheduled trips were in fact preformed. On the right ranking, you can see how many performed trips did not have an associated scheduled trip also called extra trips. 
+
+All the data used on each ranking refers to the current day by default but can be changed using the calenda filter highlighted in red.
+
+### Routes daily operation
+
+<div style="display:table-cell; vertical-align:middle; text-align:center">
+  <img src="https://drive.google.com/uc?id=0B3NoFHg_3tQrVDBzQVZDT29zZTg" alt="Drawing" align="center"/>
+</div>
+
+After looking at information about the system as a whole, you can investigate how was each route operation. The feature called "Escala" displays all performed and scheduled trips on a arch graphic where each trips is shown as an arch. The x axis represents the hour of the day. By the arch color you will be able to notice if the trip performed on time or late, if the trip did not perform any scheduled trip or if a scheduled trip was not performed at all also called missing trips.
+
+On the top left corner you can filter the visualization by route, date and bus. On the top right corner you can see a operation summary of the current selection. From the left to the right: median duration of a trip, amount of trips performed on time, amount of delayed trips, amount of extra trips, amount of missing trips and the amount of trips performed that day.
+
+The slider on the bottom let you filter all shown trips by their starting time.
 
 - Trips classified as:
     + On time
     + Late
     + Extra
     + Missing
-- Route rankings according to:  
-    + Number of On time trips
-    + Number of Scheduled trips accomplished  
-    + Number of extra trips (not scheduled) accomplished  
 - Trips are shown in a nice, interactive and easy manner
 - Analysis can be filtered by bus, date and route
 - Ticketing data analysis is also available per route and per company
@@ -41,7 +51,7 @@ This task uses essentially the starting time of both trips. The scheduled trip i
 
 # Architecture
 <div style="display:table-cell; vertical-align:middle; text-align:center">
-  <img src="https://lh6.googleusercontent.com/Naj9nv-OIIatfDJl5kbyapZm9IwScFFcwJ4MFc0v2b_ndglU4mVXsjPdnQ--y9lEKWNzgmt93U0L2mo=w1855-h1110-rw" alt="Drawing" align="center"/>
+  <img src="https://drive.google.com/uc?id=0B3NoFHg_3tQrVDBzQVZDT29zZTg" alt="Drawing" align="center"/>
 </div>
 
 ## Installation/Configuration
