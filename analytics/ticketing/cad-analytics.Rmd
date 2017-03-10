@@ -1,0 +1,221 @@
+---
+title: "Curitiba City Administration Dashboard - Ticketing Data Analytics (Powered by Ophidia)"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    vertical_layout: scroll
+    
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(plotly)
+```
+
+Row {data-height=650}
+-------------------------------------
+    
+### Overall - Peak Times
+    
+```{r cache=TRUE}
+
+weekdaysets.peakhours <- read.csv("processing-output/weekdaysets-peakhours.csv")
+
+weekdaysets.peakhours.df <- weekdaysets.peakhours %>%
+    separate(DATETIME, c("weekdayset","hour"), " ") %>%
+    mutate(hour = as.integer(gsub("-.*","",hour)),
+           weekdayset = factor(weekdayset))
+
+passengers.per.weekday.group.per.hour <- weekdaysets.peakhours.df %>%
+    group_by(weekdayset,hour) %>%
+    summarise(num.passengers = mean(SUM, na.rm=TRUE))
+
+p1 <- ggplot(passengers.per.weekday.group.per.hour, aes(hour,num.passengers,group=weekdayset, color=weekdayset)) +
+    geom_line() +
+    scale_x_continuous(breaks=seq(0,23,2)) +
+    labs(title="Mean number of passengers per hour by day of week group",
+         x="Hour of Day",
+         y="Number of passengers") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+ggplotly(p1)
+
+```
+
+Row {data-height=400}
+-------------------------------------
+
+### Overall - Passengers per Day of Week
+    
+```{r cache=TRUE}
+
+weekdays.peakhours <- read.csv("processing-output/weekdays-peakhours.csv")
+
+weekdays <- c("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday")
+
+weekdays.peakhours.df <- weekdays.peakhours %>%
+    separate(DATETIME, c("weekday","hour"), " ") %>%
+    mutate(hour = as.integer(gsub("-.*","",hour)),
+           weekday = factor(weekday, levels = weekdays, ordered = TRUE))
+
+passengers.per.weekday <- weekdays.peakhours.df %>%
+    group_by(weekday) %>%
+    summarise(num.passengers = mean(SUM, na.rm=TRUE))
+
+p2 <- ggplot(passengers.per.weekday, aes(weekday,num.passengers)) +
+    geom_bar(stat="identity") +
+    labs(title="Mean number of passengers per day of week",
+         x="Day of Week",
+         y="Number of passengers") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+ggplotly(p2)
+
+```
+   
+### Overall - Passengers per Day of Week Group
+
+```{r cache=TRUE}
+
+passengers.per.weekday.group <- weekdaysets.peakhours.df %>%
+    group_by(weekdayset) %>%
+    summarise(num.passengers = mean(SUM, na.rm=TRUE))
+
+p3 <- ggplot(passengers.per.weekday.group, aes(reorder(weekdayset,num.passengers),num.passengers)) +
+    geom_bar(stat="identity") +
+    labs(title="Mean number of passengers per day of week group",
+         x="Day of Week Group",
+         y="Number of passengers") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+ggplotly(p3)
+
+```   
+ 
+Row {data-height=400}
+-------------------------------------
+
+### Top-5 lines - Passengers per Day of Week
+
+```{r cache=TRUE}
+weekdays.lines <- read.csv("processing-output/weekdays-lines.csv")
+
+passengers.per.weekday.lines <- weekdays.lines %>%
+    rename(weekday = DATETIME,
+           line = CODLINHA) %>%
+    mutate(weekday = factor(weekday, levels = weekdays, ordered = TRUE))
+    
+top.5.passengers.per.weekday.lines <- passengers.per.weekday.lines %>%
+    group_by(line) %>%
+    summarise(num.passengers = mean(SUM)) %>%
+    filter(!(line %in% c("000","OPC"))) %>%
+    top_n(5, num.passengers)
+
+passengers.per.weekday.lines <- passengers.per.weekday.lines %>%
+    filter(line %in% top.5.passengers.per.weekday.lines$line)
+
+p4 <- ggplot(passengers.per.weekday.lines, aes(weekday,SUM,group=line, color=line)) +
+    geom_line() +
+    labs(title="Top-5 lines - Mean number of passengers per day of week",
+         x="Day of Week",
+         y="Number of passengers") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+ggplotly(p4)
+```
+
+
+### Top-5 lines - Passengers per Day of Week Group
+
+```{r cache=TRUE}
+weekdaysets.lines <- read.csv("processing-output/weekdaysets-lines.csv")
+
+passengers.per.weekdaysets.lines <- weekdaysets.lines %>%
+    rename(weekdayset = DATETIME,
+           line = CODLINHA)
+    
+top.5.passengers.per.weekdaysets.lines <- passengers.per.weekdaysets.lines %>%
+    group_by(line) %>%
+    summarise(num.passengers = mean(SUM,na.rm=TRUE)) %>%
+    filter(!(line %in% c("000","OPC"))) %>%
+    top_n(5, num.passengers)
+
+passengers.per.weekdaysets.lines <- passengers.per.weekdaysets.lines %>%
+    filter(line %in% top.5.passengers.per.weekdaysets.lines$line)
+
+p5 <- ggplot(passengers.per.weekdaysets.lines, aes(reorder(weekdayset,SUM),SUM,group=line, color=line)) +
+    geom_line() +
+    labs(title="Top-5 lines - Mean number of passengers per day of week group",
+         x="Day of Week Group",
+         y="Number of passengers") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+ggplotly(p5)
+```
+
+Row {data-height=400}
+-------------------------------------
+
+### Top-5 lines - Passengers per Week
+
+```{r cache=TRUE}
+weekly.lines <- read.csv("processing-output/weekly-lines.csv")
+
+passengers.per.weekly.lines <- weekly.lines %>%
+    rename(week = DATETIME,
+           line = CODLINHA) %>%
+    mutate(week = as.integer(gsub(".*W","",week)))
+    
+top.5.passengers.per.weekly.lines <- passengers.per.weekly.lines %>%
+    group_by(line) %>%
+    summarise(num.passengers = mean(SUM,na.rm=TRUE)) %>%
+    filter(!(line %in% c("000","OPC"))) %>%
+    top_n(5, num.passengers)
+
+passengers.per.weekly.lines <- passengers.per.weekly.lines %>%
+    filter(line %in% top.5.passengers.per.weekly.lines$line)
+
+p6 <- ggplot(passengers.per.weekly.lines, aes(week,SUM,group=line, color=line)) +
+    geom_line() +
+    scale_x_continuous(breaks=26:39) +
+    labs(title="Top-5 lines - Mean number of passengers per week",
+         x="Week (ISO) number",
+         y="Number of passengers") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+ggplotly(p6)
+```
+
+### Top-5 lines - Passengers per Month
+
+```{r cache=TRUE}
+monthly.lines <- read.csv("processing-output/monthly-lines.csv")
+
+passengers.per.monthly.lines <- monthly.lines %>%
+    rename(month = DATETIME,
+           line = CODLINHA) %>%
+    mutate(month = as.integer(gsub(".*-","",month))) %>%
+    filter(month != 6)
+    
+top.5.passengers.per.monthly.lines <- passengers.per.monthly.lines %>%
+    group_by(line) %>%
+    summarise(num.passengers = mean(SUM, na.rm=TRUE)) %>%
+    filter(!(line %in% c("000","OPC"))) %>%
+    top_n(5, num.passengers)
+
+passengers.per.monthly.lines <- passengers.per.monthly.lines %>%
+    filter(line %in% top.5.passengers.per.monthly.lines$line)
+
+p7 <- ggplot(passengers.per.monthly.lines, aes(month,SUM,group=line, color=line)) +
+    geom_line() +
+    scale_x_continuous(breaks=7:9) + 
+    labs(title="Top-5 lines - Mean number of passengers per month",
+         x="Month of year",
+         y="Number of passengers") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+ggplotly(p7)
+```
