@@ -30,13 +30,12 @@ weekdaysets.peakhours.df <- weekdaysets.peakhours %>%
            weekdayset = factor(weekdayset))
 
 passengers.per.weekday.group.per.hour <- weekdaysets.peakhours.df %>%
-    group_by(weekdayset,hour) %>%
-    summarise(num.passengers = mean(SUM, na.rm=TRUE))
+    select(weekdayset,hour,num.passengers = SUM)
 
 p1 <- ggplot(passengers.per.weekday.group.per.hour, aes(hour,num.passengers,group=weekdayset, color=weekdayset)) +
     geom_line() +
     scale_x_continuous(breaks=seq(0,23,2)) +
-    labs(title="Mean number of passengers per hour by day of week group",
+    labs(title="Total number of passengers per hour by day of week group",
          x="Hour of Day",
          y="Number of passengers") +
   theme(plot.title = element_text(hjust = 0.5))
@@ -63,11 +62,11 @@ weekdays.peakhours.df <- weekdays.peakhours %>%
 
 passengers.per.weekday <- weekdays.peakhours.df %>%
     group_by(weekday) %>%
-    summarise(num.passengers = mean(SUM, na.rm=TRUE))
+    summarise(num.passengers = median(SUM, na.rm=TRUE))
 
 p2 <- ggplot(passengers.per.weekday, aes(weekday,num.passengers)) +
     geom_bar(stat="identity") +
-    labs(title="Mean number of passengers per day of week",
+    labs(title="Median number of passengers per day of week",
          x="Day of Week",
          y="Number of passengers") +
   theme(plot.title = element_text(hjust = 0.5))
@@ -82,11 +81,11 @@ ggplotly(p2)
 
 passengers.per.weekday.group <- weekdaysets.peakhours.df %>%
     group_by(weekdayset) %>%
-    summarise(num.passengers = mean(SUM, na.rm=TRUE))
+    summarise(num.passengers = median(SUM, na.rm=TRUE))
 
 p3 <- ggplot(passengers.per.weekday.group, aes(reorder(weekdayset,num.passengers),num.passengers)) +
     geom_bar(stat="identity") +
-    labs(title="Mean number of passengers per day of week group",
+    labs(title="Median number of passengers per day of week group",
          x="Day of Week Group",
          y="Number of passengers") +
   theme(plot.title = element_text(hjust = 0.5))
@@ -119,7 +118,7 @@ passengers.per.weekday.lines <- passengers.per.weekday.lines %>%
 
 p4 <- ggplot(passengers.per.weekday.lines, aes(weekday,SUM,group=line, color=line)) +
     geom_line() +
-    labs(title="Top-5 lines - Mean number of passengers per day of week",
+    labs(title="Top-5 lines - Total number of passengers per day of week",
          x="Day of Week",
          y="Number of passengers") +
   theme(plot.title = element_text(hjust = 0.5))
@@ -148,7 +147,7 @@ passengers.per.weekdaysets.lines <- passengers.per.weekdaysets.lines %>%
 
 p5 <- ggplot(passengers.per.weekdaysets.lines, aes(reorder(weekdayset,SUM),SUM,group=line, color=line)) +
     geom_line() +
-    labs(title="Top-5 lines - Mean number of passengers per day of week group",
+    labs(title="Top-5 lines - Total number of passengers per day of week group",
          x="Day of Week Group",
          y="Number of passengers") +
   theme(plot.title = element_text(hjust = 0.5))
@@ -181,7 +180,7 @@ passengers.per.weekly.lines <- passengers.per.weekly.lines %>%
 p6 <- ggplot(passengers.per.weekly.lines, aes(week,SUM,group=line, color=line)) +
     geom_line() +
     scale_x_continuous(breaks=26:39) +
-    labs(title="Top-5 lines - Mean number of passengers per week",
+    labs(title="Top-5 lines - Total number of passengers per week",
          x="Week (ISO) number",
          y="Number of passengers") +
   theme(plot.title = element_text(hjust = 0.5))
@@ -212,7 +211,7 @@ passengers.per.monthly.lines <- passengers.per.monthly.lines %>%
 p7 <- ggplot(passengers.per.monthly.lines, aes(month,SUM,group=line, color=line)) +
     geom_line() +
     scale_x_continuous(breaks=7:9) + 
-    labs(title="Top-5 lines - Mean number of passengers per month",
+    labs(title="Top-5 lines - Total number of passengers per month",
          x="Month of year",
          y="Number of passengers") +
   theme(plot.title = element_text(hjust = 0.5))
